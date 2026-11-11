@@ -182,13 +182,7 @@ function bindEvents() {
   });
 
   els.btnClearSearch.addEventListener('click', () => {
-    els.searchQuery.value = '';
-    els.searchArtist.value = '';
-    els.searchTitle.value = '';
-    els.searchCatno.value = '';
-    els.searchBarcode.value = '';
-    els.searchCandidates.innerHTML = '';
-    els.searchStatusReadout.textContent = 'Enter an album above and press Search Discogs.';
+    clearSearchFields(true);
   });
 
   // Collection Filter & Sort
@@ -222,6 +216,18 @@ function switchTab(tabName) {
 }
 
 // --- MANUAL DISCOGS SEARCH & ADD ---
+
+function clearSearchFields(clearResults = false) {
+  els.searchQuery.value = '';
+  els.searchArtist.value = '';
+  els.searchTitle.value = '';
+  els.searchCatno.value = '';
+  els.searchBarcode.value = '';
+  if (clearResults) {
+    els.searchCandidates.innerHTML = '';
+    els.searchStatusReadout.textContent = 'Enter an album above and press Search Discogs.';
+  }
+}
 
 async function runManualSearch() {
   const q = els.searchQuery.value.trim();
@@ -295,6 +301,8 @@ function renderCandidates(candidates) {
     const addBtn = card.querySelector('[data-add-idx]');
     if (addBtn) {
       addBtn.addEventListener('click', async () => {
+        // Immediately auto-clear the search input boxes when pressing "+ Add & Sync"
+        clearSearchFields(false);
         addBtn.disabled = true;
         addBtn.textContent = 'Syncing...';
         await addCandidateToCollection(item);
