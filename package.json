@@ -1,0 +1,17 @@
+{
+  "name": "vinyl-vault",
+  "version": "2.0.0",
+  "description": "Vinyl Record Collection Manager with two-way Discogs Collection Sync",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js"
+  },
+  "dependencies": {
+    "better-sqlite3": "^11.5.0",
+    "cookie-parser": "^1.4.7",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "selfsigned": "^2.4.1"
+  }
+}

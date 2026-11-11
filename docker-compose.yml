@@ -1,0 +1,17 @@
+services:
+  vinyl-scanner:
+    build: .
+    container_name: vinyl-scanner
+    restart: unless-stopped
+    ports:
+      - "${HTTPS_PORT:-3443}:3443"
+      - "${PORT:-3000}:3000"
+    environment:
+      - APP_PASSWORD=${APP_PASSWORD:-vinyl123}
+      - SESSION_SECRET=${SESSION_SECRET:-change-this-secret-in-prod}
+      - DISCOGS_TOKEN=${DISCOGS_TOKEN:-}
+      - DATA_DIR=/app/data
+      - PORT=3000
+      - HTTPS_PORT=3443
+    volumes:
+      - ./data:/app/data
